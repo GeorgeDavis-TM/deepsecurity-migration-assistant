@@ -23,14 +23,15 @@ custom:
 provider:
   name: aws
   runtime: python3.8
-  profile: ${self:custom.stages.${opt:stage}.awscli_profile}
+  profile: ${self:custom.stages.${opt:stage, self:custom.defaultStage}.awscli_profile}
   stage: ${opt:stage, self:custom.defaultStage}
-  region: ${self:custom.stages.${opt:stage}.aws_region}
+  region: ${self:custom.stages.${opt:stage, self:custom.defaultStage}.aws_region}
   memorySize: 128
   timeout: 180
+  logRetentionInDays: 14
   environment:
-    srcC1WSApiKey: ${self:custom.stages.${opt:stage}.srcC1WSApiKey}
-    destC1WSApiKey: ${self:custom.stages.${opt:stage}.destC1WSApiKey}    
+    srcC1WSApiKey: ${self:custom.stages.${opt:stage, self:custom.defaultStage}.srcC1WSApiKey}
+    destC1WSApiKey: ${self:custom.stages.${opt:stage, self:custom.defaultStage}.destC1WSApiKey}    
   tags:
     BusinessCase: C1WS-MigrationAssistant
     Owner: TrendMicro
