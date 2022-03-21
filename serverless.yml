@@ -8,31 +8,29 @@ custom:
   defaultStage: dev
   stages:
     dev:
-      profile: default
-      region: us-east-2
-      srcC1WSApiKey: tmc125AKjBNpuhAP9BJV9Hy67BWiLD3:8v8Rxe1gSHojrjxAVdjbCn5mLMZC1UN2U5gBbSijFJQUVnVWzemS1smAHsTg5QPndd
-      destC1WSApiKey: 20SmJdKTNTX6qvR3ocB5yqR1c64:7SeRbuznYwqcSKiPJsAmYtKLqRwJRp2tLvePjbgXHUD8xMBKy9gBAm9Eaj71XF26Vk
+      awscli_profile: default
+      aws_region: us-east-2
+      srcC1WSApiKey: <source_cloudone_api_key>
+      destC1WSApiKey: <destination_cloudone_api_key>
       exceptionPolicies: Base Policy, Demo, LAMP Server, Linux Server, Windows, Windows Server 2003, Windows Server 2008, Windows Server 2012
-    prod:
-      profile: serverless
-      region: us-east-1
-      srcC1WSApiKey: tmc125AKjBNpuhAP9BJV9Hy67BWiLD3:8v8Rxe1gSHojrjxAVdjbCn5mLMZC1UN2U5gBbSijFJQUVnVWzemS1smAHsTg5QPndd
-      destC1WSApiKey: 20SmJdKTNTX6qvR3ocB5yqR1c64:7SeRbuznYwqcSKiPJsAmYtKLqRwJRp2tLvePjbgXHUD8xMBKy9gBAm9Eaj71XF26Vk
+    staging:
+      awscli_profile: staging
+      aws_region: us-east-1
+      srcC1WSApiKey: <source_cloudone_api_key>
+      destC1WSApiKey: <destination_cloudone_api_key>
       exceptionPolicies: Base Policy, Demo, LAMP Server, Linux Server, Windows, Windows Server 2003, Windows Server 2008, Windows Server 2012
 
 provider:
   name: aws
   runtime: python3.8
-  profile: ${self:custom.stages.${opt:stage}.profile}
+  profile: ${self:custom.stages.${opt:stage}.awscli_profile}
   stage: ${opt:stage, self:custom.defaultStage}
-  region: ${self:custom.stages.${opt:stage}.region}
+  region: ${self:custom.stages.${opt:stage}.aws_region}
   memorySize: 128
   timeout: 180
-  logRetentionInDays: 14
   environment:
     srcC1WSApiKey: ${self:custom.stages.${opt:stage}.srcC1WSApiKey}
-    destC1WSApiKey: ${self:custom.stages.${opt:stage}.destC1WSApiKey}
-    timeDeltaInLogQuery: 6 # In hours
+    destC1WSApiKey: ${self:custom.stages.${opt:stage}.destC1WSApiKey}    
   tags:
     BusinessCase: C1WS-MigrationAssistant
     Owner: TrendMicro
