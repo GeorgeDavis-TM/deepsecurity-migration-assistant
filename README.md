@@ -49,7 +49,7 @@ All configurable options are found in the serverless.yml file under `.custom`
 
 | Fields | Description | Required? |
 |--------| ----------- | --------- |
-|`awscli_profile` | AWS CLI profile to use to deploy the Serverless CloudFormation stack | Yes |
+| `awscli_profile` | AWS CLI profile to use to deploy the Serverless CloudFormation stack | Yes |
 | `aws_region` | AWS Region to deploy the CloudFormation stack to | Yes |
 | `srcC1WSApiKey` | Cloud One API key of the source Cloud One tenant  | Yes |
 | `destC1WSApiKey` | Cloud One API key of the destination Cloud One tenant | Yes |
